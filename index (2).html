@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أبي الغالي – سندي وأماني</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Amiri & Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti for Celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#070C18',
+                            800: '#0B132B',
+                            700: '#1C2541',
+                            600: '#2A3A5E',
+                        },
+                        gold: {
+                            100: '#FFF9E6',
+                            300: '#F3E5AB',
+                            400: '#E6CA65',
+                            500: '#D4AF37',
+                            600: '#AA820A',
+                            700: '#805B00',
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 3s infinite alternate',
+                        'shimmer': 'shimmer 2.5s infinite linear',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 15px rgba(212, 175, 55, 0.3)' },
+                            '100%': { boxShadow: '0 0 35px rgba(212, 175, 55, 0.8), 0 0 15px rgba(243, 229, 171, 0.5)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #070C18;
+            color: #F3E5AB;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism styles */
+        .glass-card {
+            background: rgba(28, 37, 65, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card-gold {
+            background: rgba(212, 175, 55, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .glass-nav {
+            background: rgba(11, 19, 43, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070C18;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F3E5AB;
+        }
+
+        /* Gold Gradient Text */
+        .gold-text-gradient {
+            background: linear-gradient(135deg, #FFF9E6 0%, #F3E5AB 30%, #D4AF37 70%, #AA820A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gold-border-gradient {
+            border-image: linear-gradient(to bottom right, #D4AF37, rgba(212, 175, 55, 0.1), #F3E5AB) 1;
+        }
+
+        /* Glowing text shadow */
+        .text-glow {
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Perspective Flip Cards */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .flip-card.flipped .transform-style-3d {
+            transform: rotateY(180deg);
+        }
+
+        /* Certificate Pattern Background */
+        .cert-pattern {
+            background-color: #0b132b;
+            background-image: radial-gradient(#d4af37 0.75px, transparent 0.75px), radial-gradient(#d4af37 0.75px, #0b132b 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0,15px 15px;
+            opacity: 0.9;
+        }
+
+        /* Canvas Overlay */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Interactive Background Particles Canvas -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- ==================== 1. INTRO SCREEN ==================== -->
+    <div id="introScreen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-navy-900 transition-all duration-1000 overflow-hidden px-4">
+        <!-- Floating Ambient Lights -->
+        <div class="absolute w-96 h-96 bg-gold-500/10 rounded-full blur-3xl animate-pulse-slow pointer-events-none"></div>
+        <div class="absolute w-80 h-80 bg-navy-600/30 rounded-full blur-3xl pointer-events-none -bottom-10 -right-10"></div>
+
+        <div class="relative z-10 text-center max-w-2xl mx-auto space-y-8 flex flex-col items-center">
+            
+            <!-- Golden Royal Badge/Icon -->
+            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full glass-card-gold flex items-center justify-center shadow-2xl border-2 border-gold-500/60 animate-float">
+                <i class="fa-solid font-amiri text-4xl sm:text-5xl text-gold-400">👑</i>
+            </div>
+
+            <!-- Title -->
+            <div class="space-y-3">
+                <p class="text-gold-300 text-lg tracking-widest uppercase font-semibold">إلى تاج رأسي وفخري</p>
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold font-amiri gold-text-gradient leading-tight">
+                    أبي الغالي... سندي وأماني
+                </h1>
+            </div>
+
+            <!-- Envelope Graphic Interaction -->
+            <div id="envelopeContainer" class="cursor-pointer group relative my-6 transition-transform duration-500 hover:scale-105" onclick="openGift()">
+                <div class="w-64 h-44 sm:w-80 sm:h-52 glass-card rounded-2xl flex flex-col items-center justify-center p-6 border-2 border-gold-500/50 shadow-2xl relative overflow-hidden group-hover:border-gold-400 transition-colors">
+                    <!-- Envelope Flap Decor -->
+                    <div class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-gold-500/20 to-transparent clip-path-triangle"></div>
+                    <i class="fa-solid fa-envelope-open-text text-5xl sm:text-6xl text-gold-400 mb-3 group-hover:scale-110 transition-transform duration-300 text-glow"></i>
+                    <span class="text-sm sm:text-base text-gold-200 font-bold tracking-wider">رسالة خاصة تنتظرك يا أبي</span>
+                    <!-- Sparkles -->
+                    <i class="fa-solid fa-sparkles absolute top-4 right-4 text-gold-300 animate-ping text-xs"></i>
+                </div>
+            </div>
+
+            <!-- Enter Button -->
+            <button onclick="openGift()" class="relative inline-flex items-center justify-center px-10 py-4 text-lg font-bold text-navy-900 transition-all duration-300 bg-gradient-to-r from-gold-300 via-gold-500 to-gold-400 rounded-full shadow-lg hover:shadow-gold-500/50 hover:scale-105 focus:outline-none animate-glow">
+                <i class="fa-solid fa-key text-xl ml-3"></i>
+                افتح هديتك يا أبي
+            </button>
+        </div>
+    </div>
+
+
+    <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+    <div id="mainContent" class="opacity-0 transition-opacity duration-1000 relative z-10 hidden">
+
+        <!-- NAVBAR -->
+        <nav class="fixed top-0 right-0 left-0 z-40 glass-nav px-4 py-3 sm:px-8">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <a href="#hero" class="flex items-center space-x-3 space-x-reverse">
+                    <span class="text-2xl">👑</span>
+                    <span class="font-amiri font-bold text-xl sm:text-2xl gold-text-gradient">أبي الغالي</span>
+                </a>
+                
+                <!-- Desktop Nav Links -->
+                <div class="hidden lg:flex items-center space-x-6 space-x-reverse text-sm font-semibold text-gold-200/90">
+                    <a href="#letter" class="hover:text-gold-400 transition-colors">رسالة القلب</a>
+                    <a href="#poetry" class="hover:text-gold-400 transition-colors">قصائد فخر</a>
+                    <a href="#flipCards" class="hover:text-gold-400 transition-colors">لو تعلم</a>
+                    <a href="#interactive" class="hover:text-gold-400 transition-colors">اختبار الوفاء</a>
+                    <a href="#surprises" class="hover:text-gold-400 transition-colors">المفاجآت</a>
+                    <a href="#duaa" class="hover:text-gold-400 transition-colors">دعوات من القلب</a>
+                    <a href="#reasons" class="hover:text-gold-400 transition-colors">100 سبب</a>
+                </div>
+
+                <!-- CTA Button -->
+                <button onclick="openFinalModal()" class="px-4 py-2 text-xs sm:text-sm font-bold bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 rounded-lg hover:brightness-110 transition-all shadow-md">
+                    المشهد الختامي <i class="fa-solid fa-crown mr-1"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- HERO HEADER -->
+        <section id="hero" class="pt-32 pb-20 px-4 text-center max-w-4xl mx-auto relative">
+            <div class="inline-block px-4 py-1.5 rounded-full glass-card-gold text-gold-300 text-sm mb-6 border border-gold-500/40">
+                ✨ هدية محبة وامتنان وفخر
+            </div>
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold font-amiri leading-tight gold-text-gradient mb-6">
+                إلى مَن علّمني كيف أكون رجلاً.. إلى أبي
+            </h1>
+            <p class="text-lg sm:text-xl text-gold-100/80 leading-relaxed max-w-2xl mx-auto font-light">
+                هذه المساحة أعدت لك بجهد وحب، لتشهد على عظمة مكانتك في قلبي، وتبقى ذكرى خالدة تعبر عن جزء بسيط من أفضالك التي لا تُحصى.
+            </p>
+        </section>
+
+
+        <!-- ==================== 3. HEARTFELT LETTER ==================== -->
+        <section id="letter" class="py-16 px-4 max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-gold-400 text-3xl font-amiri">﴿ 🤍 ﴾</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-amiri gold-text-gradient mt-2">رسالة من أعماق القلب</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="glass-card rounded-3xl p-6 sm:p-12 relative overflow-hidden border border-gold-500/30 shadow-2xl">
+                <!-- Background Omani Ornament SVG Watermark -->
+                <div class="absolute -bottom-10 -left-10 opacity-5 pointer-events-none">
+                    <svg width="300" height="300" viewBox="0 0 100 100" fill="currentColor" class="text-gold-400">
+                        <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M50 5 L50 95 M5 50 L95 50 M18 18 L82 82 M18 82 L82 18" stroke="currentColor" stroke-width="1"/>
+                    </svg>
+                </div>
+
+                <div class="relative z-10 space-y-6 text-lg sm:text-xl leading-loose font-amiri text-gold-100/90 text-justify">
+                    <p class="first-letter:text-4xl first-letter:font-bold first-letter:text-gold-400">
+                        أبي الغالي، يا سندي وأماني بعد الله سبحانه وتعالى..
+                    </p>
+                    <p>
+                        أكتب لك هذه الكلمات وليست الحروف إلا قطرة في بحر امتنانتي لك. أنت القلعة الشامخة التي أستند عليها كلما مالت بي الأيام، والنخلة الباسقة التي تمتد مظلتها بالخير والتضحية والعطاء بلا مقابل.
+                    </p>
+                    <p>
+                        مهما كبرت في السن، ومهما بلغت من المناصب والمقامات، سأظل أمامك ذلك الابن الصغير الذي يرى في عينيك الأمان، وفي حديثك الحكمة، وفي وجودك البركة.
+                    </p>
+                    <p>
+                        أعلم يا أبي أنك تعبت كثيراً، وجاهدت في هذه الحياة لتوفر لنا العيش الكريم. ربما لا أملك القدرة دائماً على التعبير اللفظي عما يحمله قلبي، لكنني أستشعر كل تضحية قدمتها، وكل سهر سهرته، وكل جهد بذلته من أجلنا.
+                    </p>
+                    <p class="p-4 rounded-xl glass-card-gold border-r-4 border-gold-500 italic text-gold-300">
+                        "أتمنى من الله عز وجل أن يمد في عمرك على طاعته، وأن يرزقني القدرة على رد ولو جزء بسيط جداً من جميلك العظيم علينا.. إنك أجمل نعم ربي."
+                    </p>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-gold-500/20 flex justify-between items-center flex-wrap gap-4">
+                    <div class="flex items-center space-x-3 space-x-reverse text-gold-400 text-sm font-cairo">
+                        <i class="fa-solid fa-shield-heart text-2xl"></i>
+                        <span>سندي الدائم وفخري الخالد</span>
+                    </div>
+                    <div class="font-amiri text-xl font-bold gold-text-gradient">
+                        ابنك البار المحب
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 4. ORIGINAL POETRY ==================== -->
+        <section id="poetry" class="py-16 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-gold-400 text-sm font-bold tracking-widest uppercase">قصائد وأبيات فصيحة</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-amiri gold-text-gradient mt-2">شعر في مدح الأب العظيم</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Poem Card 1 -->
+                <div class="glass-card rounded-2xl p-8 border border-gold-500/30 hover:border-gold-400 transition-all hover:-translate-y-1 duration-300">
+                    <div class="flex items-center justify-between mb-6 border-b border-gold-500/20 pb-4">
+                        <h3 class="font-amiri font-bold text-2xl text-gold-300">يا تاج رأسي</h3>
+                        <i class="fa-solid fa-feather-pointed text-gold-400 text-xl"></i>
+                    </div>
+                    <div class="space-y-4 font-amiri text-xl text-center leading-relaxed text-gold-100">
+                        <p class="py-2 border-b border-gold-500/10">أَبا العَلْياءِ يَا سَنَداً تَبَادَى ... كَبَدْرٍ فِي لَيَالِينَا أَضَاءَا</p>
+                        <p class="py-2 border-b border-gold-500/10">بَنَيْتَ المَجْدَ فِي حُبٍّ وَصَبْرٍ ... وَأَعْطَيْتَ الحَيَاةَ لَنَا سَخَاءَا</p>
+                        <p class="py-2 border-b border-gold-500/10">فَلَوْ صُغْتُ القَوَافِيَ مِنْ لُجَيْنٍ ... لَمَا وَفَّتْ لَكَ العُمْرَ الثَّنَاءَا</p>
+                        <p class="py-2">تَظَلُّ الصَّرْحَ فِي قَلْبِي شَامِخاً ... وَتَبْقَى النُّورَ وَالذَّخْرَ الوَفَاءَا</p>
+                    </div>
+                </div>
+
+                <!-- Poem Card 2 -->
+                <div class="glass-card rounded-2xl p-8 border border-gold-500/30 hover:border-gold-400 transition-all hover:-translate-y-1 duration-300">
+                    <div class="flex items-center justify-between mb-6 border-b border-gold-500/20 pb-4">
+                        <h3 class="font-amiri font-bold text-2xl text-gold-300">ظل الأمان</h3>
+                        <i class="fa-solid fa-scroll text-gold-400 text-xl"></i>
+                    </div>
+                    <div class="space-y-4 font-amiri text-xl text-center leading-relaxed text-gold-100">
+                        <p class="py-2 border-b border-gold-500/10">أَبِي يَا نَبْعَ إِحْسَانٍ وَجُودِ ... وَيَا ظِلاًَّ وِقَايَتُهُ صُمُودِي</p>
+                        <p class="py-2 border-b border-gold-500/10">سَهِرْتَ اللَّيْلَ أَعْوَاماً طِوَالاً ... لِتَبْنِيَ بِالْعَرَقِ العَذْبِ وُجُودِي</p>
+                        <p class="py-2 border-b border-gold-500/10">سَأَمْشِي فِي طَرِيقِكَ فِي فَخَارٍ ... وَأَحْفَظُ لِلْوَفَاءِ لَكُمْ عُهُودِي</p>
+                        <p class="py-2">فَأَنْتَ العِزُّ يَا أَبَتِي وَفَخْرِي ... وَأَنْتَ الأَمْنُ فِي كُلِّ الخُطُوبِ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 5. IF YOU ONLY KNEW CARD FLIPS ==================== -->
+        <section id="flipCards" class="py-16 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-gold-400 text-sm font-bold tracking-widest uppercase">اضغط على البطاقات لاكتشاف ما بداخلها</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-amiri gold-text-gradient mt-2">لو تعلم يا أبي كم أحبك</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="flip-card h-64 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="transform-style-3d relative w-full h-full duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-gold-500/30 backface-hidden">
+                            <i class="fa-solid fa-heart text-4xl text-gold-400 mb-4 animate-bounce"></i>
+                            <h3 class="font-amiri text-2xl font-bold text-gold-200">لو تعلم يا أبي...</h3>
+                            <p class="text-xs text-gold-400/80 mt-2">(انقر للكشف عن الرسالة)</p>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card-gold rounded-2xl p-6 flex items-center justify-center text-center border-2 border-gold-500 rotate-y-180 backface-hidden">
+                            <p class="font-amiri text-xl text-gold-100 font-bold leading-relaxed">
+                                "لو تعلم كم أفخر وأعتز بين جميع الناس عندما أقول بكل ثقة: أنا ابن هذا الرجل العظيم!"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="flip-card h-64 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="transform-style-3d relative w-full h-full duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-gold-500/30 backface-hidden">
+                            <i class="fa-solid fa-hands-holding-child text-4xl text-gold-400 mb-4 animate-bounce"></i>
+                            <h3 class="font-amiri text-2xl font-bold text-gold-200">لو تعلم يا أبي...</h3>
+                            <p class="text-xs text-gold-400/80 mt-2">(انقر للكشف عن الرسالة)</p>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card-gold rounded-2xl p-6 flex items-center justify-center text-center border-2 border-gold-500 rotate-y-180 backface-hidden">
+                            <p class="font-amiri text-xl text-gold-100 font-bold leading-relaxed">
+                                "لو تعلم كم أطمئن ويهدأ بالي حين تكون بجانبي، وكأن الدنيا كلها لا تستطيع إيذائي وجودك أماني."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="flip-card h-64 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="transform-style-3d relative w-full h-full duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-gold-500/30 backface-hidden">
+                            <i class="fa-solid fa-hands-praying text-4xl text-gold-400 mb-4 animate-bounce"></i>
+                            <h3 class="font-amiri text-2xl font-bold text-gold-200">لو تعلم يا أبي...</h3>
+                            <p class="text-xs text-gold-400/80 mt-2">(انقر للكشف عن الرسالة)</p>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card-gold rounded-2xl p-6 flex items-center justify-center text-center border-2 border-gold-500 rotate-y-180 backface-hidden">
+                            <p class="font-amiri text-xl text-gold-100 font-bold leading-relaxed">
+                                "لو تعلم أن دعاءك لي ورضاك عني هما السر الوحيد لكل توفيق ونجاح وبركة أعشها في حياتي."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="flip-card h-64 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="transform-style-3d relative w-full h-full duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-gold-500/30 backface-hidden">
+                            <i class="fa-solid fa-seedling text-4xl text-gold-400 mb-4 animate-bounce"></i>
+                            <h3 class="font-amiri text-2xl font-bold text-gold-200">لو تعلم يا أبي...</h3>
+                            <p class="text-xs text-gold-400/80 mt-2">(انقر للكشف عن الرسالة)</p>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card-gold rounded-2xl p-6 flex items-center justify-center text-center border-2 border-gold-500 rotate-y-180 backface-hidden">
+                            <p class="font-amiri text-xl text-gold-100 font-bold leading-relaxed">
+                                "لو تعلم أنني مهما كبرت واستقلت بي الحياة، سأظل بحاجة إلى نصيحتك، وحنانك، ونظرة رضاك."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="flip-card h-64 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="transform-style-3d relative w-full h-full duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-gold-500/30 backface-hidden">
+                            <i class="fa-solid fa-sun text-4xl text-gold-400 mb-4 animate-bounce"></i>
+                            <h3 class="font-amiri text-2xl font-bold text-gold-200">لو تعلم يا أبي...</h3>
+                            <p class="text-xs text-gold-400/80 mt-2">(انقر للكشف عن الرسالة)</p>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card-gold rounded-2xl p-6 flex items-center justify-center text-center border-2 border-gold-500 rotate-y-180 backface-hidden">
+                            <p class="font-amiri text-xl text-gold-100 font-bold leading-relaxed">
+                                "لو تعلم أن وجودك في حياتنا هو النور الذي يبدد كل ظلام، والشمس التي تمنحنا الدفء والخير."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="flip-card h-64 perspective-1000 cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="transform-style-3d relative w-full h-full duration-700">
+                        <!-- Front -->
+                        <div class="absolute inset-0 glass-card rounded-2xl p-6 flex flex-col items-center justify-center text-center border border-gold-500/30 backface-hidden">
+                            <i class="fa-solid fa-award text-4xl text-gold-400 mb-4 animate-bounce"></i>
+                            <h3 class="font-amiri text-2xl font-bold text-gold-200">لو تعلم يا أبي...</h3>
+                            <p class="text-xs text-gold-400/80 mt-2">(انقر للكشف عن الرسالة)</p>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 glass-card-gold rounded-2xl p-6 flex items-center justify-center text-center border-2 border-gold-500 rotate-y-180 backface-hidden">
+                            <p class="font-amiri text-xl text-gold-100 font-bold leading-relaxed">
+                                "لو تعلم أن أكبر إنجاز أتمناه في حياتي هو أن أكون سبباً في ابتسامتك وفخرك بي أمام الله والناس."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 6. INTERACTIVE QUIZZES ==================== -->
+        <section id="interactive" class="py-16 px-4 max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-gold-400 text-sm font-bold tracking-widest uppercase">مساحة التفاعل والود</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-amiri gold-text-gradient mt-2">أسئلة تفاعلية واختبار المكانة</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <!-- Quiz Container 1: Interactive Questions -->
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-gold-500/30 mb-12">
+                <div class="flex items-center space-x-3 space-x-reverse mb-6">
+                    <span class="p-3 bg-gold-500/20 rounded-xl text-gold-400"><i class="fa-solid fa-circle-question text-2xl"></i></span>
+                    <h3 class="text-2xl font-bold font-amiri text-gold-200">أسئلة المحبة والتقدير</h3>
+                </div>
+
+                <div id="qSection" class="space-y-6">
+                    <p id="questionText" class="text-xl font-amiri text-gold-100 font-semibold"></p>
+                    <div id="optionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Options injected dynamically -->
+                    </div>
+                    <div id="feedbackBox" class="hidden p-4 rounded-xl glass-card-gold text-gold-200 font-amiri text-lg border border-gold-500/40 animate-fade-in"></div>
+                </div>
+            </div>
+
+            <!-- Quiz Container 2: Place in Heart Quiz -->
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-gold-500/30 text-center relative overflow-hidden">
+                <div class="max-w-xl mx-auto space-y-6">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-gold-500/20 flex items-center justify-center border border-gold-400 text-gold-400 text-3xl">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold font-amiri gold-text-gradient">اختبار: كم تعرف مكانتك في قلب ابنك؟</h3>
+                    <p class="text-gold-200/80">اضغط على الزر أدناه لمعرفة النتيجة الحقيقية لمكانتك في قلبي</p>
+                    
+                    <button onclick="runHeartQuiz()" class="px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 font-bold rounded-full shadow-lg hover:scale-105 transition-all">
+                        احسب مقياس المحبة الآن ❤️
+                    </button>
+
+                    <div id="heartResult" class="hidden mt-6 space-y-4 p-6 glass-card-gold rounded-2xl border-2 border-gold-400">
+                        <div class="text-5xl font-extrabold gold-text-gradient font-amiri animate-bounce">100% + ♾️</div>
+                        <h4 class="text-2xl font-bold font-amiri text-gold-300">مكانة لا يُحيط بها رقم أو حدود!</h4>
+                        <p class="text-gold-100 leading-relaxed font-amiri text-lg">
+                            مكانتك يا أبي فوق الثريا، وأكبر من أي مقياس في الدنيا. أنت القلب والنَبض والسند الذي لا يُعوض أبداً!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 7. SURPRISES SECTION ==================== -->
+        <section id="surprises" class="py-16 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-gold-400 text-sm font-bold tracking-widest uppercase">صناديق المفاجآت المغلقة</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-amiri gold-text-gradient mt-2">افتح المفاجآت الخاصة</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Surprise 1 -->
+                <button onclick="showSurpriseModal(1)" class="p-6 glass-card rounded-2xl border border-gold-500/30 hover:border-gold-400 transition-all hover:scale-105 flex flex-col items-center text-center space-y-4 group">
+                    <div class="w-16 h-16 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 text-2xl group-hover:bg-gold-500 group-hover:text-navy-900 transition-colors">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <span class="font-bold text-lg text-gold-200">اضغط هنا لتعرف سراً</span>
+                    <span class="text-xs text-gold-400/70">انقر للفتح 🗝️</span>
+                </button>
+
+                <!-- Surprise 2 -->
+                <button onclick="showSurpriseModal(2)" class="p-6 glass-card rounded-2xl border border-gold-500/30 hover:border-gold-400 transition-all hover:scale-105 flex flex-col items-center text-center space-y-4 group">
+                    <div class="w-16 h-16 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 text-2xl group-hover:bg-gold-500 group-hover:text-navy-900 transition-colors">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <span class="font-bold text-lg text-gold-200">رسالة أخرى تنتظرك</span>
+                    <span class="text-xs text-gold-400/70">انقر للفتح 🎁</span>
+                </button>
+
+                <!-- Surprise 3 -->
+                <button onclick="showSurpriseModal(3)" class="p-6 glass-card rounded-2xl border border-gold-500/30 hover:border-gold-400 transition-all hover:scale-105 flex flex-col items-center text-center space-y-4 group">
+                    <div class="w-16 h-16 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 text-2xl group-hover:bg-gold-500 group-hover:text-navy-900 transition-colors">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <span class="font-bold text-lg text-gold-200">هل تريد أن تعرف شيئاً؟</span>
+                    <span class="text-xs text-gold-400/70">انقر للفتح 💡</span>
+                </button>
+
+                <!-- Surprise 4 -->
+                <button onclick="showSurpriseModal(4)" class="p-6 glass-card rounded-2xl border border-gold-500/30 hover:border-gold-400 transition-all hover:scale-105 flex flex-col items-center text-center space-y-4 group">
+                    <div class="w-16 h-16 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 text-2xl group-hover:bg-gold-500 group-hover:text-navy-900 transition-colors">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <span class="font-bold text-lg text-gold-200">افتح مفاجأتك التالية</span>
+                    <span class="text-xs text-gold-400/70">انقر للفتح ✨</span>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ==================== 8. PRAYERS (DUAA) CAROUSEL ==================== -->
+        <section id="duaa" class="py-16 px-4 max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-gold-400 text-sm font-bold tracking-widest uppercase">دعوات مباركة صادقة</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-amiri gold-text-gradient mt-2">دعوات من قلبي إليك يا أبي</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <div class="relative glass-card rounded-3xl p-8 sm:p-12 border border-gold-500/30 min-h-[280px] flex flex-col justify-between items-center text-center">
+                <i class="fa-solid fa-hands-praying text-4xl text-gold-400/60 mb-4"></i>
+                
+                <p id="duaaText" class="font-amiri text-2xl sm:text-3xl text-gold-100 leading-relaxed font-bold my-auto transition-all duration-500">
+                    "اللهم احفظ أبي بعينك التي لا تنام، وأطل في عمره على طاعتك، ومتعه بالصحة والعافية وراحة البال."
+                </p>
+
+                <div class="flex items-center justify-between w-full mt-8 pt-6 border-t border-gold-500/20">
+                    <button onclick="prevDuaa()" class="px-4 py-2 rounded-lg glass-card-gold text-gold-300 hover:text-gold-100 flex items-center space-x-2 space-x-reverse">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <span>السابق</span>
+                    </button>
+                    <span id="duaaCounter" class="text-xs text-gold-400/80 font-bold">1 / 6</span>
+                    <button onclick="nextDuaa()" class="px-4 py-2 rounded-lg glass-card-gold text-gold-300 hover:text-gold-100 flex items-center space-x-2 space-x-reverse">
+                        <span>التالي</span>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ==================== 9. 100 REASONS WHY I LOVE MY FATHER ==================== -->
+        <section id="reasons" class="py-16 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-8">
+                <span class="text-gold-400 text-sm font-bold tracking-widest uppercase">استكشف الأسباب التي تجعلك الأفضل</span>
+                <h2 class="text-3xl sm:text-4xl font-bold font-amiri gold-text-gradient mt-2">100 سبب تجعلني أحب أبي</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mt-4"></div>
+            </div>
+
+            <!-- Counter Badge -->
+            <div class="flex justify-center mb-8">
+                <div class="px-6 py-2 rounded-full glass-card-gold border border-gold-400 text-gold-300 font-bold text-lg flex items-center space-x-3 space-x-reverse">
+                    <i class="fa-solid fa-compass text-gold-400"></i>
+                    <span>عدد الأسباب المكتشفة: <span id="reasonsDiscovered" class="text-white font-extrabold">0</span> / 100</span>
+                </div>
+            </div>
+
+            <!-- Grid of Cards -->
+            <div id="reasonsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Reasons will be loaded dynamically by JS -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-10">
+                <button id="loadMoreReasonsBtn" onclick="loadMoreReasons()" class="px-8 py-3 glass-card-gold text-gold-300 font-bold rounded-full hover:bg-gold-500 hover:text-navy-900 transition-all border border-gold-500/50">
+                    عرض المزيد من الأسباب ✨
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ==================== 10. FINAL GRAND SCENE TRIGGER ==================== -->
+        <section class="py-20 px-4 text-center">
+            <div class="glass-card rounded-3xl p-10 max-w-4xl mx-auto border-2 border-gold-500/50 shadow-2xl space-y-6">
+                <div class="w-20 h-20 mx-auto rounded-full bg-gold-500/20 flex items-center justify-center border-2 border-gold-400 animate-pulse">
+                    <i class="fa-solid fa-trophy text-4xl text-gold-400"></i>
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-bold font-amiri gold-text-gradient">وصلت إلى نهاية هديتك يا أبي</h2>
+                <p class="text-gold-200/80 text-lg max-w-xl mx-auto">
+                    اضغط هنا للانتقال إلى المشهد السينمائي الختامي الذي يحمل شهادة فخر واعتراف أخير لك.
+                </p>
+                <button onclick="openFinalModal()" class="px-12 py-5 text-xl font-extrabold text-navy-900 bg-gradient-to-r from-gold-300 via-gold-500 to-gold-400 rounded-full shadow-2xl hover:scale-105 transition-all animate-glow">
+                    افتح المشهد الختامي الكبير 👑
+                </button>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="py-8 text-center text-gold-400/60 text-sm border-t border-gold-500/20">
+            <p>تم إعداد هذا الموقع بكل حب وفخر وإجلال من الابن إلى أبيه الغالي ❤️</p>
+        </footer>
+
+    </div>
+
+
+    <!-- ==================== MODALS & OVERLAYS ==================== -->
+
+    <!-- SURPRISE MODAL -->
+    <div id="surpriseModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-navy-900/90 backdrop-blur-md">
+        <div class="glass-card rounded-3xl p-8 max-w-lg w-full border-2 border-gold-500 text-center relative animate-fade-in shadow-2xl">
+            <button onclick="closeSurpriseModal()" class="absolute top-4 left-4 text-gold-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="surpriseModalContent" class="space-y-6">
+                <!-- Content set by JS -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FINAL GRAND CINEMATIC MODAL (FULLSCREEN) -->
+    <div id="finalModal" class="fixed inset-0 z-50 hidden bg-navy-900 overflow-y-auto p-4 sm:p-8">
+        <div class="max-w-4xl mx-auto space-y-12 py-12 relative">
+            
+            <!-- Close Button -->
+            <button onclick="closeFinalModal()" class="fixed top-6 left-6 z-50 w-12 h-12 rounded-full glass-card-gold text-gold-300 hover:text-white flex items-center justify-center text-xl shadow-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center space-y-4">
+                <i class="fa-solid fa-crown text-6xl text-gold-400 text-glow animate-bounce"></i>
+                <h1 class="text-4xl sm:text-6xl font-extrabold font-amiri gold-text-gradient">المشهد الختامي الكبير</h1>
+                <p class="text-gold-200/80">إلى أعظم أب في العالم</p>
+            </div>
+
+            <!-- 1. Long Heartfelt Letter -->
+            <div class="glass-card rounded-3xl p-8 sm:p-12 border border-gold-500/40 space-y-6 text-lg sm:text-xl font-amiri text-gold-100 leading-loose text-justify">
+                <h3 class="text-2xl font-bold text-gold-300 border-b border-gold-500/30 pb-3">رسالة الختام والإجلال</h3>
+                <p>
+                    أبي الغالي الحبيب.. بعد أن قطعت هذه الجولة في رحلة محبتنا، أردت أن أختم بهذه العبارات الخالدة. قد لا تكفي جميع أوراق العالم ولا أحبار الشعراء لوصف ما تحمله جوارحي لك من حب وتقدير وإجلال.
+                </p>
+                <p>
+                    أنت السند الذي لم يمل، والظهر الذي لم ينحنِ أمام صِعاب الحياة لكي نعيش نحن مرفوعي الرأس. كل نقطة عرق سالت من جبينك الطاهر، وكل ساعة عمل، وكل دعوة دَعَوْتَ بها لنا في ظهر الغيب، هي دينٌ في أعناقنا لا نملك إلا أن ندعو الله أن يجزيك عنه الجنة.
+                </p>
+            </div>
+
+            <!-- 2. LUXURY GOLD CERTIFICATE -->
+            <div class="cert-pattern rounded-3xl p-8 sm:p-14 border-4 border-gold-500 shadow-2xl text-center relative overflow-hidden">
+                <!-- Decorative Border Corners -->
+                <div class="absolute top-4 right-4 w-12 h-12 border-t-4 border-r-4 border-gold-400"></div>
+                <div class="absolute top-4 left-4 w-12 h-12 border-t-4 border-l-4 border-gold-400"></div>
+                <div class="absolute bottom-4 right-4 w-12 h-12 border-b-4 border-r-4 border-gold-400"></div>
+                <div class="absolute bottom-4 left-4 w-12 h-12 border-b-4 border-l-4 border-gold-400"></div>
+
+                <div class="space-y-6 relative z-10">
+                    <span class="text-gold-400 font-bold tracking-widest text-sm uppercase">شهادة فخر وإجلال ملكية</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold font-amiri text-gold-300">إلى أعظم أب في العالم</h2>
+                    <p class="text-gold-100/90 font-amiri text-xl sm:text-2xl max-w-2xl mx-auto leading-relaxed">
+                        تُمنح هذه الشهادة بكل فخر وحب واعتزاز إلى أبي الغالي، تقديراً لتضحياته العظيمة، وحنانه الذي لا ينضب، وكونه القدوة الأولى والمثل الأعلى في الاستقامة والشهامة.
+                    </p>
+                    <div class="py-6">
+                        <div class="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-gold-300 to-gold-600 p-1 shadow-2xl">
+                            <div class="w-full h-full rounded-full bg-navy-900 flex items-center justify-center border-2 border-gold-400">
+                                <i class="fa-solid fa-award text-4xl text-gold-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. SPECIAL DEDICATED PRAYER -->
+            <div class="glass-card-gold rounded-3xl p-8 text-center border-2 border-gold-400 space-y-4">
+                <i class="fa-solid fa-hands-praying text-4xl text-gold-400"></i>
+                <h3 class="text-2xl font-bold font-amiri text-gold-300">دعاء خاص ومستجاب بإذن الله</h3>
+                <p class="font-amiri text-2xl text-gold-100 leading-relaxed max-w-2xl mx-auto">
+                    "اللهم يا ذا الجلال والإكرام، ارزق أبي الصحة التي لا تزول، والعافية التي لا تفارق جسده، واجعل الفردوس الأعلى مستقره ومقامه، وبارك له في عمره ورزقه وأهله."
+                </p>
+            </div>
+
+            <!-- 4. FINAL CONFESSION & SIGNATURE -->
+            <div class="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-8 border border-gold-500/40">
+                <div class="space-y-2">
+                    <span class="text-gold-400 text-sm">اعتراف أخير من القلب</span>
+                    <h3 class="text-3xl sm:text-4xl font-extrabold font-amiri gold-text-gradient">
+                        «أبي، أنت أجمل نعمة في حياتي»
+                    </h3>
+                </div>
+
+                <div class="pt-8 border-t border-gold-500/30 max-w-md mx-auto">
+                    <p class="text-gold-300 font-amiri text-lg mb-2">التوقيع العاطفي:</p>
+                    <p class="font-amiri text-2xl font-bold text-gold-100 leading-relaxed">
+                        «من ابنك الذي لا يرى في الدنيا سنداً بعد الله سواك.»
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        /* ----------------------------------------------------
+           1. PARTICLES CANVAS ENGINE
+        ---------------------------------------------------- */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * -0.5 - 0.2;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.color = '#D4AF37';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(Math.floor(window.innerWidth / 15), 70);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+
+        /* ----------------------------------------------------
+           2. INTRO TO MAIN APP TRANSITION
+        ---------------------------------------------------- */
+        function openGift() {
+            const intro = document.getElementById('introScreen');
+            const main = document.getElementById('mainContent');
+
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.display = 'none';
+                main.classList.remove('hidden');
+                setTimeout(() => {
+                    main.style.opacity = '1';
+                }, 50);
+            }, 800);
+
+            // Trigger celebration confetti
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#D4AF37', '#F3E5AB', '#FFFFFF']
+            });
+        }
+
+
+        /* ----------------------------------------------------
+           3. INTERACTIVE QUIZ LOGIC
+        ---------------------------------------------------- */
+        const quizData = [
+            {
+                q: "هل تعرف كم أنت غالٍ عندي ومعزتك في قلبي؟",
+                options: ["أكثر مما تتصور بكثير", "فوق كل الوصف والحدود"],
+                reply: "بالتأكيد يا أبي! معزتك لا تقاس بأي مقياس، أنت الغالي الذي لا عوض له."
+            },
+            {
+                q: "ماذا تعني لك كلمة الأبوة والتضحية؟",
+                options: ["العطاء بلا حساب", "الحنان والأمان الخالد"],
+                reply: "وأنت يا أبي أوفيت معنى الأبوة حقه، وأعطيتنا الأمان والعطاء دون انتظار مقابل."
+            },
+            {
+                q: "هل تعلم أنك أعظم قدوة ونموذج في عيني؟",
+                options: ["أعلم ذلك وفخور بك", "أنت سندي ومثلي الأعلى"],
+                reply: "نعم، أتعلم منك الحكمة والرجولة والشهامة في كل يوم وفي كل موقف."
+            }
+        ];
+
+        let currentQIndex = 0;
+
+        function loadQuestion() {
+            const q = quizData[currentQIndex];
+            document.getElementById('questionText').innerText = `${currentQIndex + 1}. ${q.q}`;
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            document.getElementById('feedbackBox').classList.add('hidden');
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "p-4 glass-card-gold text-gold-200 rounded-xl hover:bg-gold-500 hover:text-navy-900 transition-all font-amiri text-lg font-bold border border-gold-500/30 text-right";
+                btn.innerText = opt;
+                btn.onclick = () => selectOption(q.reply);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(reply) {
+            const feedbackBox = document.getElementById('feedbackBox');
+            feedbackBox.innerText = reply;
+            feedbackBox.classList.remove('hidden');
+
+            setTimeout(() => {
+                currentQIndex = (currentQIndex + 1) % quizData.length;
+                loadQuestion();
+            }, 3500);
+        }
+
+        loadQuestion();
+
+        function runHeartQuiz() {
+            const res = document.getElementById('heartResult');
+            res.classList.remove('hidden');
+            confetti({
+                particleCount: 100,
+                spread: 100,
+                origin: { y: 0.7 },
+                colors: ['#D4AF37', '#FFF']
+            });
+        }
+
+
+        /* ----------------------------------------------------
+           4. SURPRISE MODALS
+        ---------------------------------------------------- */
+        const surprises = {
+            1: {
+                icon: "fa-key",
+                title: "سر من أعماق القلب 🗝️",
+                body: "السر يا أبي هو أنني في كل مرة أواجه فيها موقفاً صعباً في حياتي، أسأل نفسي فوراً: (كيف كان أبي سيتصرف بكل هذه الحكمة والمواقف المشرّفة؟)."
+            },
+            2: {
+                icon: "fa-envelope",
+                title: "رسالة خاصة 🎁",
+                body: "ابتسامتك يا أبي في الصباح هي المفتاح الفعلي لسعادتي وطمأنينتي طوال اليوم. لا حرمنا الله من إشراقة وجهك الكريم."
+            },
+            3: {
+                icon: "fa-lightbulb",
+                title: "هل تعلم؟ 💡",
+                body: "هل تعلم أن صوتك في البيت وهو يدعو لنا أو يتحدث معنا يمنحنا شعوراً أعمق بالأمان لا يمكن لأي ثروة في العالم أن تمنحه؟"
+            },
+            4: {
+                icon: "fa-gift",
+                title: "المفاجأة التالية ✨",
+                body: "وعدٌ مني يا أبي أن أظل دائماً ذلك الابن البار الذي يسعى لرفع رأسك وفخرك في كل مكان وزمان."
+            }
+        };
+
+        function showSurpriseModal(id) {
+            const s = surprises[id];
+            const content = document.getElementById('surpriseModalContent');
+            content.innerHTML = `
+                <div class="w-16 h-16 mx-auto rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 text-3xl">
+                    <i class="fa-solid ${s.icon}"></i>
+                </div>
+                <h3 class="text-2xl font-bold font-amiri text-gold-300">${s.title}</h3>
+                <p class="font-amiri text-xl text-gold-100 leading-relaxed">${s.body}</p>
+                <button onclick="closeSurpriseModal()" class="px-6 py-2 bg-gold-500 text-navy-900 font-bold rounded-full hover:bg-gold-400 transition-all">إغلاق</button>
+            `;
+            document.getElementById('surpriseModal').classList.remove('hidden');
+        }
+
+        function closeSurpriseModal() {
+            document.getElementById('surpriseModal').classList.add('hidden');
+        }
+
+
+        /* ----------------------------------------------------
+           5. DUAA CAROUSEL
+        ---------------------------------------------------- */
+        const duaaList = [
+            "اللهم احفظ أبي بعينك التي لا تنام، وأطل في عمره على طاعتك، ومتعه بالصحة والعافية وراحة البال.",
+            "اللهم اجعل أبي ممن تشملهم برحمتك وفضلك، واغفر له ما تقدم من ذنبه وما تأخر، وبارك في أوقاته وأعماله.",
+            "ربّ أسرّ قلب أبي بما يتمنى، وابعد عنه كل همّ أو حزن، واجعل الابتسامة لا تفارق محياه الطاهر.",
+            "اللهم ارزق أبي الفردوس الأعلى من الجنة، واجمعه مع النبيين والصديقين والشهداء وحسن أولئك رفيقا.",
+            "اللهم بارك لـ أبي في صحته وعافيته، واجعل كل ما قدمه لنا في ميزان حسناته الصالحة المضاعفة.",
+            "اللهم إني أستودعك قلب أبي وصحته وعمره، فاحفظه بحفظك الجميل يا رب العالمين."
+        ];
+
+        let currentDuaaIndex = 0;
+
+        function updateDuaaDisplay() {
+            const textEl = document.getElementById('duaaText');
+            const counterEl = document.getElementById('duaaCounter');
+            textEl.style.opacity = '0';
+            setTimeout(() => {
+                textEl.innerText = `"${duaaList[currentDuaaIndex]}"`;
+                counterEl.innerText = `${currentDuaaIndex + 1} / ${duaaList.length}`;
+                textEl.style.opacity = '1';
+            }, 300);
+        }
+
+        function nextDuaa() {
+            currentDuaaIndex = (currentDuaaIndex + 1) % duaaList.length;
+            updateDuaaDisplay();
+        }
+
+        function prevDuaa() {
+            currentDuaaIndex = (currentDuaaIndex - 1 + duaaList.length) % duaaList.length;
+            updateDuaaDisplay();
+        }
+
+
+        /* ----------------------------------------------------
+           6. 100 REASONS GENERATOR
+        ---------------------------------------------------- */
+        const baseReasons = [
+            "أنك علّمتني كيف أكون رجلاً ذو أخلاق وقيم.",
+            "لأن حنانك يمنحني الأمان في أصعب الأوقات.",
+            "أنك تتعب وتضحي وتعمل بلا كلل من أجل سعادتنا.",
+            "حكمتك البالغة في معالجة الأمور والتحديات.",
+            "أن ابتسامتك تضيء البيت وتجلب البهجة.",
+            "أنك القدوة والمثل الأعلى في الاستقامة والشهامة.",
+            "لأن دعواتك الصادقة تحميني وتفتح لي أبواب الخير.",
+            "صبرك الجميل وهدوؤك عند الشدائد.",
+            "أنك تجعلني أشعر دائماً بأن لدي سنداً لا يتزعزع.",
+            "لأنك تصغي إليّ باهتمام وتفهّم دائماً.",
+            "كرمك السخي ونبل أخلاقك مع الجميع.",
+            "أنك تعلّمني احترام الكبير والعطف على الصغير.",
+            "حرصك الدائم على أن نكون أفضل منك في الحياة.",
+            "أنك تحميني بوجودك قبل أي شيء آخر.",
+            "نصائحك الثمينة التي تنور لي طريقي.",
+            "لأن قلبك يتسع للجميع بالحب والمسامحة.",
+            "فخرك بي وثقتك العالية في قدراتي.",
+            "أنك تعلمني معنى المسؤولية والالتزام.",
+            "لأنك ملجأي الأول عندما تشتد الأيام.",
+            "أنك تعطيني بدون أن تطلب أي مقابل."
+        ];
+
+        // Generate 100 unique items dynamically based on categories
+        const full100Reasons = [];
+        for (let i = 1; i <= 100; i++) {
+            if (i <= baseReasons.length) {
+                full100Reasons.push(`${i}. ${baseReasons[i - 1]}`);
+            } else {
+                const templates = [
+                    `السبب ${i}: لأنك تمنحنا العطف والمحبة النقية في كل يوم.`,
+                    `السبب ${i}: لأن وجودك يعطي للحياة طعماً ومعنى جميلاً.`,
+                    `السبب ${i}: لأنك تعلّمنا كيف نواجه الصعاب بصبر وإيمان.`,
+                    `السبب ${i}: لأن حبك لنا أفعال صادقة تسبق أي كلام.`,
+                    `السبب ${i}: لأنك تحرص على تجمعنا وتماسك أسرتنا.`,
+                    `السبب ${i}: لأن ذكراك العطرة وأخلاقك ترفع رأسنا دائماً.`
+                ];
+                full100Reasons.push(templates[(i - 1) % templates.length]);
+            }
+        }
+
+        let displayedReasonsCount = 0;
+        const reasonsPerPage = 12;
+
+        function loadMoreReasons() {
+            const grid = document.getElementById('reasonsGrid');
+            const nextBatch = full100Reasons.slice(displayedReasonsCount, displayedReasonsCount + reasonsPerPage);
+
+            nextBatch.forEach(reason => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-4 rounded-xl border border-gold-500/20 hover:border-gold-400 transition-all text-gold-100 font-amiri text-base leading-relaxed flex items-center space-x-3 space-x-reverse";
+                card.innerHTML = `
+                    <i class="fa-solid fa-heart text-gold-400 text-xs shrink-0"></i>
+                    <span>${reason}</span>
+                `;
+                grid.appendChild(card);
+            });
+
+            displayedReasonsCount += nextBatch.length;
+            document.getElementById('reasonsDiscovered').innerText = displayedReasonsCount;
+
+            if (displayedReasonsCount >= full100Reasons.length) {
+                document.getElementById('loadMoreReasonsBtn').style.display = 'none';
+            }
+        }
+
+        // Initial load
+        loadMoreReasons();
+
+
+        /* ----------------------------------------------------
+           7. FINAL GRAND MODAL LOGIC
+        ---------------------------------------------------- */
+        function openFinalModal() {
+            document.getElementById('finalModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Big Confetti explosion
+            confetti({
+                particleCount: 150,
+                spread: 120,
+                origin: { y: 0.5 },
+                colors: ['#D4AF37', '#F3E5AB', '#FFFFFF']
+            });
+        }
+
+        function closeFinalModal() {
+            document.getElementById('finalModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
